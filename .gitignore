@@ -1,0 +1,15 @@
+# dependencies
+node_modules
+
+# environment variables
+.env
+
+# Prisma
+/src/generated/prisma
+
+# IDE
+.vscode/*
+!.vscode/settings.json
+
+# build
+dist
