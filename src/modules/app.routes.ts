@@ -6,7 +6,7 @@ import type { Router as ExpressRouter } from 'express';
 
 const router: ExpressRouter = Router();
 
-router.get('/books', BookRoutes);
-router.get('/health', HealthRoutes);
+router.use('/books', BookRoutes);
+router.use('/health', HealthRoutes);
 
 export default router;
