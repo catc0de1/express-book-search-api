@@ -4,7 +4,8 @@ export const checkPrismaHealth = async () => {
 	try {
 		await prisma.$queryRaw`SELECT 1`;
 		return true;
-	} catch {
+	} catch (err) {
+		console.error('Prisma health check failed:', err);
 		return false;
 	}
 };
