@@ -1,31 +1,16 @@
 import 'dotenv/config';
-import bcrypt from 'bcrypt';
+
 import { prisma } from '../src/lib/prisma';
+import { adminSeeder } from './seeds/admin.seeder';
+import { bookSeeder } from './seeds/book.seeder';
 
 async function main() {
-	const adminCount = await prisma.admin.count();
+	console.log('🌱 Seeding database...\n');
 
-	if (adminCount > 0) {
-		console.log('Admin already exist, skipping seed');
-		return;
-	}
+	await adminSeeder();
+	await bookSeeder();
 
-	const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
-	const PASSWORD_PEPPER = process.env.PASSWORD_PEPPER;
-
-	if (!ADMIN_PASSWORD || !PASSWORD_PEPPER) {
-		throw new Error('ADMIN_PASSWORD or PASSWORD_PEPPER missing');
-	}
-
-	const hashedPassword = await bcrypt.hash(ADMIN_PASSWORD + PASSWORD_PEPPER, 12);
-
-	await prisma.admin.create({
-		data: {
-			password: hashedPassword
-		}
-	});
-
-	console.log('Admin seeded successfully');
+	console.log('\n🌱 Seeding finished');
 }
 
 main()
