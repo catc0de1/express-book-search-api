@@ -9,9 +9,25 @@ export class BookController {
 	async getAll(req: Request, res: Response) {
 		const page = Number(req.query.page) || 1;
 		const limit = Number(req.query.limit) || 10;
-		const sort = (req.query.sort === 'asc' ? 'asc' : 'desc') as 'asc' | 'desc';
 
-		const result = await bookService.getAllBook({ page, limit, sort });
+		const parseSort = (value: unknown): 'asc' | 'desc' | null => {
+			if (value === 'asc') return 'asc';
+			if (value === 'desc') return 'desc';
+			return null;
+		};
+
+		const query = {
+			page,
+			limit,
+			createdAtSort: parseSort(req.query.createdAtSort),
+			titleSort: parseSort(req.query.titleSort),
+			authorSort: parseSort(req.query.authorSort),
+			yearSort: parseSort(req.query.yearSort),
+			publisherSort: parseSort(req.query.publisherSort),
+			categorySort: parseSort(req.query.categorySort)
+		};
+
+		const result = await bookService.getAllBook(query);
 
 		res.status(200).json(result);
 	}

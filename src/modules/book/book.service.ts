@@ -5,20 +5,35 @@ import type { CreateBookSchema, UpdateBookSchema } from './book.validator';
 interface getAllBookQuery {
 	page?: number;
 	limit?: number;
-	sort?: 'asc' | 'desc';
+	createdAtSort?: 'asc' | 'desc' | null;
+	titleSort?: 'asc' | 'desc' | null;
+	authorSort?: 'asc' | 'desc' | null;
+	yearSort?: 'asc' | 'desc' | null;
+	publisherSort?: 'asc' | 'desc' | null;
+	categorySort?: 'asc' | 'desc' | null;
 }
 
 export class BookService {
 	async getAllBook(query?: getAllBookQuery) {
 		const page = query?.page ?? 1;
 		const limit = query?.limit ?? 10;
-		const sort = query?.sort ?? 'desc';
+
+		const orderBy: Record<string, 'asc' | 'desc'>[] = [];
+
+		if (query?.createdAtSort) orderBy.push({ createdAt: query.createdAtSort });
+		if (query?.titleSort) orderBy.push({ title: query.titleSort });
+		if (query?.authorSort) orderBy.push({ author: query.authorSort });
+		if (query?.yearSort) orderBy.push({ year: query.yearSort });
+		if (query?.publisherSort) orderBy.push({ publisher: query.publisherSort });
+		if (query?.categorySort) orderBy.push({ category: query.categorySort });
+
+		if (orderBy.length === 0) {
+			orderBy.push({ createdAt: 'desc' });
+		}
 
 		const [books, total] = await Promise.all([
 			prisma.book.findMany({
-				orderBy: {
-					createdAt: sort
-				},
+				orderBy,
 				skip: (page - 1) * limit,
 				take: limit
 			}),
