@@ -6,23 +6,24 @@ const bookService = new BookService();
 
 export class BookController {
 	async getAll(_req: Request, res: Response) {
-		try {
-			const books = await bookService.getAllBook();
+		const books = await bookService.getAllBook();
 
-			res.json({
-				data: books,
-				total: books.length
-			});
-		} catch (err) {
-			res.status(500).json({
-				message: `Failed to fetch books: ${err}`
-			});
-		}
+		res.status(200).json({
+			data: books,
+			total: books.length
+		});
 	}
 
 	getOne() {}
 
-	create() {}
+	async create(req: Request, res: Response) {
+		const book = await bookService.createBook(req.body);
+
+		res.status(201).json({
+			message: 'Book created successfully',
+			data: book
+		});
+	}
 
 	update() {}
 
