@@ -15,7 +15,25 @@ export class BookController {
 		});
 	}
 
-	getOne() {}
+	async getOne(req: Request, res: Response) {
+		const id = Number(req.params.id);
+
+		if (Number.isNaN(id)) {
+			return res.status(400).json({ message: 'Invalid book ID' });
+		}
+
+		const book = await bookService.getOneBook(id);
+
+		if (!book) {
+			return res.status(404).json({
+				message: 'Book not found'
+			});
+		}
+
+		res.status(200).json({
+			data: book
+		});
+	}
 
 	async create(req: Request, res: Response) {
 		const book = await bookService.createBook(req.body);

@@ -11,6 +11,12 @@ export class BookService {
 		});
 	}
 
+	getOneBook(id: number) {
+		return prisma.book.findUnique({
+			where: { id }
+		});
+	}
+
 	createBook(body: CreateBookSchema) {
 		return prisma.book.create({
 			data: body
