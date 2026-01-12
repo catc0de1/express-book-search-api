@@ -2,13 +2,40 @@ import { prisma } from '@/lib/prisma';
 
 import type { CreateBookSchema, UpdateBookSchema } from './book.validator';
 
+interface getAllBookQuery {
+	page?: number;
+	limit?: number;
+	sort?: 'asc' | 'desc';
+}
+
 export class BookService {
-	getAllBook() {
-		return prisma.book.findMany({
-			orderBy: {
-				createdAt: 'desc'
-			}
-		});
+	async getAllBook(query?: getAllBookQuery) {
+		const page = query?.page ?? 1;
+		const limit = query?.limit ?? 10;
+		const sort = query?.sort ?? 'desc';
+
+		const [books, total] = await Promise.all([
+			prisma.book.findMany({
+				orderBy: {
+					createdAt: sort
+				},
+				skip: (page - 1) * limit,
+				take: limit
+			}),
+			prisma.book.count()
+		]);
+
+		const totalPages = Math.ceil(total / limit);
+
+		return {
+			meta: {
+				total,
+				page,
+				limit,
+				totalPages
+			},
+			data: books
+		};
 	}
 
 	getOneBook(id: number) {

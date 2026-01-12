@@ -6,13 +6,14 @@ import type { Request, Response } from 'express';
 const bookService = new BookService();
 
 export class BookController {
-	async getAll(_req: Request, res: Response) {
-		const books = await bookService.getAllBook();
+	async getAll(req: Request, res: Response) {
+		const page = Number(req.query.page) || 1;
+		const limit = Number(req.query.limit) || 10;
+		const sort = (req.query.sort === 'asc' ? 'asc' : 'desc') as 'asc' | 'desc';
 
-		res.status(200).json({
-			data: books,
-			total: books.length
-		});
+		const result = await bookService.getAllBook({ page, limit, sort });
+
+		res.status(200).json(result);
 	}
 
 	async getOne(req: Request, res: Response) {
