@@ -1,6 +1,6 @@
 import { prisma } from '@/lib/prisma';
 
-import type { createBookSchema, updateBookSchema } from './book.validator';
+import type { CreateBookSchema, UpdateBookSchema } from './book.validator';
 
 export class BookService {
 	getAllBook() {
@@ -11,13 +11,13 @@ export class BookService {
 		});
 	}
 
-	createBook(body: createBookSchema) {
+	createBook(body: CreateBookSchema) {
 		return prisma.book.create({
 			data: body
 		});
 	}
 
-	updateBook(id: number, body: updateBookSchema) {
+	updateBook(id: number, body: UpdateBookSchema) {
 		return prisma.book.update({
 			where: { id },
 			data: body
