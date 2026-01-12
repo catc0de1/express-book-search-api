@@ -52,6 +52,7 @@ Simple **Book Search API** built with **Express**, **TypeScript**, **Prisma ORM*
     ```env
     NODE_ENV=production
     DATABASE_URL="postgresql://username:password@localhost:5432/book_api"
+    ADMIN_PASSWORD=dontadmin123
     ```
 
 4. **Prisma Setup**
@@ -62,6 +63,12 @@ Simple **Book Search API** built with **Express**, **TypeScript**, **Prisma ORM*
 
     ```bash
     npx prisma migrate dev --name init
+    ```
+
+    Prisma database seeding:
+
+    ```bash
+    npx prisma db seed
     ```
 
     Prisma Studio:
