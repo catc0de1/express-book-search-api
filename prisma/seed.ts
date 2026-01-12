@@ -10,14 +10,14 @@ async function main() {
 		return;
 	}
 
-	const password = process.env.ADMIN_PASSWORD;
-	const pepper = process.env.PASSWORD_PEPPER;
+	const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
+	const PASSWORD_PEPPER = process.env.PASSWORD_PEPPER;
 
-	if (!password || !pepper) {
+	if (!ADMIN_PASSWORD || !PASSWORD_PEPPER) {
 		throw new Error('ADMIN_PASSWORD or PASSWORD_PEPPER missing');
 	}
 
-	const hashedPassword = await bcrypt.hash(password + pepper, 12);
+	const hashedPassword = await bcrypt.hash(ADMIN_PASSWORD + PASSWORD_PEPPER, 12);
 
 	await prisma.admin.create({
 		data: {
