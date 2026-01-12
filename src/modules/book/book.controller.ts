@@ -15,6 +15,10 @@ export class BookController {
 			if (value === 'desc') return 'desc';
 			return null;
 		};
+		const parseFilter = (value: string): string | null => {
+			if (value && value.trim() !== '') return value;
+			return null;
+		};
 
 		const query = {
 			page,
@@ -24,7 +28,8 @@ export class BookController {
 			authorSort: parseSort(req.query.authorSort),
 			yearSort: parseSort(req.query.yearSort),
 			publisherSort: parseSort(req.query.publisherSort),
-			categorySort: parseSort(req.query.categorySort)
+			categorySort: parseSort(req.query.categorySort),
+			titleFilter: parseFilter(req.query.titleFilter as string)
 		};
 
 		const result = await bookService.getAllBook(query);

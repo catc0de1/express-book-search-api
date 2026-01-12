@@ -11,6 +11,7 @@ interface getAllBookQuery {
 	yearSort?: 'asc' | 'desc' | null;
 	publisherSort?: 'asc' | 'desc' | null;
 	categorySort?: 'asc' | 'desc' | null;
+	titleFilter?: string | null;
 }
 
 export class BookService {
@@ -33,11 +34,18 @@ export class BookService {
 
 		const [books, total] = await Promise.all([
 			prisma.book.findMany({
+				where: query?.titleFilter
+					? { title: { contains: query.titleFilter, mode: 'insensitive' } }
+					: {},
 				orderBy,
 				skip: (page - 1) * limit,
 				take: limit
 			}),
-			prisma.book.count()
+			prisma.book.count({
+				where: query?.titleFilter
+					? { title: { contains: query.titleFilter, mode: 'insensitive' } }
+					: {}
+			})
 		]);
 
 		const totalPages = Math.ceil(total / limit);
