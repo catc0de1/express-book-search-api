@@ -54,5 +54,30 @@ export class BookController {
 		}
 	}
 
-	delete() {}
+	async delete(req: Request, res: Response) {
+		try {
+			const id = Number(req.params.id);
+
+			if (Number.isNaN(id)) {
+				return res.status(400).json({ message: 'Invalid book ID' });
+			}
+
+			await bookService.deleteBook(id);
+
+			return res.json({
+				message: 'Book deleted successfully'
+			});
+		} catch (err) {
+			if (err instanceof Prisma.PrismaClientKnownRequestError && err.code === 'P2025') {
+				return res.status(404).json({
+					message: 'Book not found'
+				});
+			}
+
+			console.error(err);
+			return res.status(500).json({
+				message: 'Internal server error'
+			});
+		}
+	}
 }

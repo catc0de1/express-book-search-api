@@ -23,4 +23,10 @@ export class BookService {
 			data: body
 		});
 	}
+
+	deleteBook(id: number) {
+		return prisma.book.delete({
+			where: { id }
+		});
+	}
 }
