@@ -1,3 +1,4 @@
+import { Prisma } from '@/generated/prisma/client';
 import { BookService } from './book.service';
 
 import type { Request, Response } from 'express';
@@ -25,7 +26,33 @@ export class BookController {
 		});
 	}
 
-	update() {}
+	async update(req: Request, res: Response) {
+		try {
+			const id = Number(req.params.id);
+
+			if (Number.isNaN(id)) {
+				return res.status(400).json({ message: 'Invalid book ID' });
+			}
+
+			const book = await bookService.updateBook(id, req.body);
+
+			return res.json({
+				message: 'Book updated successfully',
+				data: book
+			});
+		} catch (err) {
+			if (err instanceof Prisma.PrismaClientKnownRequestError && err.code === 'P2025') {
+				return res.status(404).json({
+					message: 'Book not found'
+				});
+			}
+
+			console.error(err);
+			return res.status(500).json({
+				message: 'Internal server error'
+			});
+		}
+	}
 
 	delete() {}
 }
