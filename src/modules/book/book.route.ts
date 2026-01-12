@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import { adminGuard } from '@/middlewares/admin.middleware';
 import { validate } from '@/middlewares/validate.middleware';
 import { BookController } from './book.controller';
 import { createBookSchema, updateBookSchema } from './book.validator';
@@ -10,8 +11,8 @@ const bookController = new BookController();
 
 router.get('/', bookController.getAll);
 router.get('/:id', bookController.getOne);
-router.post('/', validate(createBookSchema), bookController.create);
-router.patch('/:id', validate(updateBookSchema), bookController.update);
-router.delete('/:id', bookController.delete);
+router.post('/', adminGuard, validate(createBookSchema), bookController.create);
+router.patch('/:id', adminGuard, validate(updateBookSchema), bookController.update);
+router.delete('/:id', adminGuard, bookController.delete);
 
 export default router;
