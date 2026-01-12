@@ -6,6 +6,12 @@ const adminService = new AdminService();
 
 export class AdminController {
 	async login(req: Request, res: Response) {
+		if (req.session.admin) {
+			return res.status(400).json({
+				message: 'Already logged in'
+			});
+		}
+
 		const { password } = req.body;
 		const pepper = process.env.PASSWORD_PEPPER;
 
@@ -31,6 +37,12 @@ export class AdminController {
 	}
 
 	async logout(req: Request, res: Response) {
+		if (!req.session.admin) {
+			return res.status(401).json({
+				message: 'Unauthenticated'
+			});
+		}
+
 		req.session.destroy((err) => {
 			if (err) {
 				console.error(err);
