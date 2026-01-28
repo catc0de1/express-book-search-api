@@ -40,6 +40,12 @@ enum Category {
   Others
 }
 
+model BookLocation {
+  id    Int     @id @default(autoincrement())
+  name  String  @unique
+  books Book[]
+}
+
 model Book {
   id              Int           @id @default(autoincrement())
   title           String
@@ -48,7 +54,8 @@ model Book {
   publisher       String?
   description     String?
   category        Category
-  bookLocation    String        @db.VarChar(50)
+  bookLocationId  Int
+  bookLocation    BookLocation  @relation(fields: [bookLocationId], references: [id])
   createdAt       DateTime      @default(now())
   updatedAt       DateTime      @updatedAt
 }

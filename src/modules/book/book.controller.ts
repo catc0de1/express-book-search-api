@@ -1,7 +1,7 @@
 import { Prisma } from '@/generated/prisma/client';
 import { BookService } from './book.service';
 
-import type { Request, Response } from 'express';
+import type { NextFunction, Request, Response } from 'express';
 
 const bookService = new BookService();
 
@@ -29,6 +29,7 @@ export class BookController {
 			yearSort: parseSort(req.query.yearSort),
 			publisherSort: parseSort(req.query.publisherSort),
 			categorySort: parseSort(req.query.categorySort),
+			bookLocationSort: parseSort(req.query.bookLocationSort),
 			titleFilter: parseFilter(req.query.titleFilter as string)
 		};
 
@@ -57,13 +58,17 @@ export class BookController {
 		});
 	}
 
-	async create(req: Request, res: Response) {
-		const book = await bookService.create(req.body);
+	async create(req: Request, res: Response, next: NextFunction) {
+		try {
+			const book = await bookService.create(req.body);
 
-		res.status(201).json({
-			message: 'Book created successfully',
-			data: book
-		});
+			res.status(201).json({
+				message: 'Book created successfully',
+				data: book
+			});
+		} catch (err) {
+			next(err);
+		}
 	}
 
 	async update(req: Request, res: Response) {

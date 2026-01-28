@@ -1,5 +1,7 @@
 import { prisma } from '@/lib/prisma';
+import { BookLocationService } from '@/modules/book-location/book-location.service';
 
+import type { Prisma } from '@/generated/prisma/client';
 import type { CreateBookSchema, UpdateBookSchema } from './book.validator';
 
 interface getAllBookQuery {
@@ -11,15 +13,20 @@ interface getAllBookQuery {
 	yearSort?: 'asc' | 'desc' | null;
 	publisherSort?: 'asc' | 'desc' | null;
 	categorySort?: 'asc' | 'desc' | null;
+	bookLocationSort?: 'asc' | 'desc' | null;
+
+	bookLocationFilter?: string | null;
 	titleFilter?: string | null;
 }
+
+const bookLocationService = new BookLocationService();
 
 export class BookService {
 	async getAll(query?: getAllBookQuery) {
 		const page = query?.page ?? 1;
 		const limit = query?.limit ?? 10;
 
-		const orderBy: Record<string, 'asc' | 'desc'>[] = [];
+		const orderBy: Prisma.BookOrderByWithRelationInput[] = [];
 
 		if (query?.createdAtSort) orderBy.push({ createdAt: query.createdAtSort });
 		if (query?.titleSort) orderBy.push({ title: query.titleSort });
@@ -27,25 +34,38 @@ export class BookService {
 		if (query?.yearSort) orderBy.push({ year: query.yearSort });
 		if (query?.publisherSort) orderBy.push({ publisher: query.publisherSort });
 		if (query?.categorySort) orderBy.push({ category: query.categorySort });
+		if (query?.bookLocationSort) orderBy.push({ bookLocation: { name: query.bookLocationSort } });
 
 		if (orderBy.length === 0) {
 			orderBy.push({ createdAt: 'desc' });
 		}
 
+		const where: Prisma.BookWhereInput = {};
+
+		if (query?.titleFilter) {
+			where.title = { contains: query.titleFilter, mode: 'insensitive' };
+		}
+
+		if (query?.bookLocationFilter) {
+			where.bookLocation = {
+				name: {
+					contains: query.bookLocationFilter,
+					mode: 'insensitive'
+				}
+			};
+		}
+
 		const [books, total] = await Promise.all([
 			prisma.book.findMany({
-				where: query?.titleFilter
-					? { title: { contains: query.titleFilter, mode: 'insensitive' } }
-					: {},
+				where,
+				include: {
+					bookLocation: true
+				},
 				orderBy,
 				skip: (page - 1) * limit,
 				take: limit
 			}),
-			prisma.book.count({
-				where: query?.titleFilter
-					? { title: { contains: query.titleFilter, mode: 'insensitive' } }
-					: {}
-			})
+			prisma.book.count({ where })
 		]);
 
 		const totalPages = Math.ceil(total / limit);
@@ -63,11 +83,20 @@ export class BookService {
 
 	getOne(id: number) {
 		return prisma.book.findUnique({
-			where: { id }
+			where: { id },
+			include: {
+				bookLocation: true
+			}
 		});
 	}
 
-	create(body: CreateBookSchema) {
+	async create(body: CreateBookSchema) {
+		const location = await bookLocationService.findUnique(body.bookLocation);
+
+		if (!location) {
+			throw new Error('Book location does not exist');
+		}
+
 		return prisma.book.create({
 			data: {
 				title: body.title,
@@ -76,12 +105,24 @@ export class BookService {
 				publisher: body.publisher,
 				description: body.description,
 				category: body.category,
-				bookLocation: body.bookLocation
+				bookLocation: {
+					connect: {
+						name: body.bookLocation
+					}
+				}
 			}
 		});
 	}
 
-	update(id: number, body: UpdateBookSchema) {
+	async update(id: number, body: UpdateBookSchema) {
+		if (body.bookLocation) {
+			const location = await bookLocationService.findUnique(body.bookLocation);
+
+			if (!location) {
+				throw new Error('Book location does not exist');
+			}
+		}
+
 		return prisma.book.update({
 			where: { id },
 			data: {
@@ -91,7 +132,13 @@ export class BookService {
 				...(body.publisher !== undefined && { publisher: body.publisher }),
 				...(body.description !== undefined && { description: body.description }),
 				...(body.category && { category: body.category }),
-				...(body.bookLocation && { bookLocation: body.bookLocation })
+				...(body.bookLocation && {
+					bookLocation: {
+						connect: {
+							name: body.bookLocation
+						}
+					}
+				})
 			}
 		});
 	}
