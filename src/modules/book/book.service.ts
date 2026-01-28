@@ -69,14 +69,30 @@ export class BookService {
 
 	createBook(body: CreateBookSchema) {
 		return prisma.book.create({
-			data: body
+			data: {
+				title: body.title,
+				author: body.author,
+				year: body.year,
+				publisher: body.publisher,
+				description: body.description,
+				category: body.category,
+				bookLocation: body.bookLocation
+			}
 		});
 	}
 
 	updateBook(id: number, body: UpdateBookSchema) {
 		return prisma.book.update({
 			where: { id },
-			data: body
+			data: {
+				...(body.title && { title: body.title }),
+				...(body.author && { author: body.author }),
+				...(body.year && { year: body.year }),
+				...(body.publisher !== undefined && { publisher: body.publisher }),
+				...(body.description !== undefined && { description: body.description }),
+				...(body.category && { category: body.category }),
+				...(body.bookLocation && { bookLocation: body.bookLocation })
+			}
 		});
 	}
 

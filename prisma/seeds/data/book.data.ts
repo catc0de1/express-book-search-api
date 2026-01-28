@@ -1,10 +1,12 @@
+import type { Category } from '../../../src/generated/prisma/enums';
+
 export type Data = {
 	title: string;
 	author: string;
 	year: number;
 	publisher: string | null;
 	description: string | null;
-	category: string;
+	category: Category;
 	bookLocation: string;
 };
 
@@ -24,7 +26,7 @@ export const data: Data[] = [
 		year: 1994,
 		publisher: 'Addison-Wesley',
 		description: 'Elements of Reusable Object-Oriented Software',
-		category: 'Software Engineering',
+		category: 'SoftwareEngineering',
 		bookLocation: 'A-02'
 	},
 	{
@@ -60,7 +62,7 @@ export const data: Data[] = [
 		year: 2009,
 		publisher: 'MIT Press',
 		description: 'Comprehensive textbook on algorithms',
-		category: 'Computer Science',
+		category: 'ComputerScience',
 		bookLocation: 'B-01'
 	},
 	{
@@ -69,7 +71,7 @@ export const data: Data[] = [
 		year: 2010,
 		publisher: 'Pearson',
 		description: 'Leading textbook in AI',
-		category: 'Artificial Intelligence',
+		category: 'ArtificialIntelligence',
 		bookLocation: 'B-02'
 	},
 	{
@@ -78,7 +80,7 @@ export const data: Data[] = [
 		year: 2016,
 		publisher: 'MIT Press',
 		description: 'Deep learning theory and applications',
-		category: 'Machine Learning',
+		category: 'MachineLearning',
 		bookLocation: 'B-03'
 	},
 	{
@@ -87,7 +89,7 @@ export const data: Data[] = [
 		year: 2002,
 		publisher: 'Addison-Wesley',
 		description: 'Design patterns for enterprise apps',
-		category: 'Software Engineering',
+		category: 'SoftwareEngineering',
 		bookLocation: 'B-04'
 	},
 	{
@@ -96,7 +98,7 @@ export const data: Data[] = [
 		year: 2003,
 		publisher: 'Addison-Wesley',
 		description: 'Tackling complexity in software projects',
-		category: 'Software Engineering',
+		category: 'SoftwareEngineering',
 		bookLocation: 'B-05'
 	},
 	{
@@ -132,7 +134,7 @@ export const data: Data[] = [
 		year: 2004,
 		publisher: "O'Reilly Media",
 		description: 'Learning design patterns visually',
-		category: 'Software Engineering',
+		category: 'SoftwareEngineering',
 		bookLocation: 'C-04'
 	},
 	{
@@ -141,7 +143,7 @@ export const data: Data[] = [
 		year: 2015,
 		publisher: 'CareerCup',
 		description: '189 programming questions and solutions',
-		category: 'Interview Prep',
+		category: 'Others',
 		bookLocation: 'C-05'
 	},
 	{
@@ -213,7 +215,7 @@ export const data: Data[] = [
 		year: 2004,
 		publisher: 'Addison-Wesley',
 		description: 'Relational database concepts',
-		category: 'Databases',
+		category: 'Database',
 		bookLocation: 'E-03'
 	},
 	{
@@ -222,7 +224,7 @@ export const data: Data[] = [
 		year: 2012,
 		publisher: 'Self-published',
 		description: 'SQL performance tips',
-		category: 'Databases',
+		category: 'Database',
 		bookLocation: 'E-04'
 	},
 	{
@@ -231,7 +233,7 @@ export const data: Data[] = [
 		year: 2019,
 		publisher: "O'Reilly Media",
 		description: 'Guide to MongoDB database',
-		category: 'Databases',
+		category: 'Database',
 		bookLocation: 'E-05'
 	},
 	{
@@ -240,7 +242,7 @@ export const data: Data[] = [
 		year: 2019,
 		publisher: "O'Reilly Media",
 		description: 'First principles in data science',
-		category: 'Data Science',
+		category: 'DataScience',
 		bookLocation: 'F-01'
 	},
 	{
@@ -249,7 +251,7 @@ export const data: Data[] = [
 		year: 2017,
 		publisher: "O'Reilly Media",
 		description: 'Data analysis with pandas library',
-		category: 'Data Science',
+		category: 'DataScience',
 		bookLocation: 'F-02'
 	},
 	{
@@ -258,7 +260,7 @@ export const data: Data[] = [
 		year: 2019,
 		publisher: "O'Reilly Media",
 		description: 'Practical ML with Python libraries',
-		category: 'Machine Learning',
+		category: 'MachineLearning',
 		bookLocation: 'F-03'
 	},
 	{
@@ -267,7 +269,7 @@ export const data: Data[] = [
 		year: 2018,
 		publisher: null,
 		description: 'Structuring ML projects',
-		category: 'Machine Learning',
+		category: 'MachineLearning',
 		bookLocation: 'F-04'
 	},
 	{
@@ -276,7 +278,7 @@ export const data: Data[] = [
 		year: 2020,
 		publisher: 'Packt',
 		description: 'Practical deep learning',
-		category: 'Machine Learning',
+		category: 'MachineLearning',
 		bookLocation: 'F-05'
 	}
 ];

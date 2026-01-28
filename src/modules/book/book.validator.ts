@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { Category } from '@/generated/prisma/enums';
 
 const currentYear = new Date().getFullYear();
 
@@ -13,7 +14,7 @@ export const createBookSchema = z
 			.max(currentYear, `Year cannot be greater than ${currentYear}`),
 		publisher: z.string().nullable().optional(),
 		description: z.string().nullable().optional(),
-		category: z.string().min(1, 'Category is required'),
+		category: z.enum(Category),
 		bookLocation: z.string().min(1, 'Book location is required').max(50, 'Book location invalid')
 	})
 	.transform((data) => ({
@@ -35,10 +36,9 @@ export const updateBookSchema = z
 			.optional(),
 		publisher: z.string().optional(),
 		description: z.string().optional(),
-		category: z.string().min(1).optional(),
+		category: z.enum(Category).optional(),
 		bookLocation: z.string().min(1).max(50, 'Book location invalid').optional()
 	})
 	.strict()
-	.refine((data) => Object.keys(data).length > 0, 'At least one field must be provided')
-	.transform((data) => Object.fromEntries(Object.entries(data).filter(([, v]) => v !== undefined)));
+	.refine((data) => Object.keys(data).length > 0, 'At least one field must be provided');
 export type UpdateBookSchema = z.infer<typeof updateBookSchema>;
