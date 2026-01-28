@@ -15,7 +15,7 @@ interface getAllBookQuery {
 }
 
 export class BookService {
-	async getAllBook(query?: getAllBookQuery) {
+	async getAll(query?: getAllBookQuery) {
 		const page = query?.page ?? 1;
 		const limit = query?.limit ?? 10;
 
@@ -61,13 +61,13 @@ export class BookService {
 		};
 	}
 
-	getOneBook(id: number) {
+	getOne(id: number) {
 		return prisma.book.findUnique({
 			where: { id }
 		});
 	}
 
-	createBook(body: CreateBookSchema) {
+	create(body: CreateBookSchema) {
 		return prisma.book.create({
 			data: {
 				title: body.title,
@@ -81,7 +81,7 @@ export class BookService {
 		});
 	}
 
-	updateBook(id: number, body: UpdateBookSchema) {
+	update(id: number, body: UpdateBookSchema) {
 		return prisma.book.update({
 			where: { id },
 			data: {
@@ -96,7 +96,7 @@ export class BookService {
 		});
 	}
 
-	deleteBook(id: number) {
+	delete(id: number) {
 		return prisma.book.delete({
 			where: { id }
 		});

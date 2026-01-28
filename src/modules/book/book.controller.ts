@@ -32,7 +32,7 @@ export class BookController {
 			titleFilter: parseFilter(req.query.titleFilter as string)
 		};
 
-		const result = await bookService.getAllBook(query);
+		const result = await bookService.getAll(query);
 
 		res.status(200).json(result);
 	}
@@ -44,7 +44,7 @@ export class BookController {
 			return res.status(400).json({ message: 'Invalid book ID' });
 		}
 
-		const book = await bookService.getOneBook(id);
+		const book = await bookService.getOne(id);
 
 		if (!book) {
 			return res.status(404).json({
@@ -58,7 +58,7 @@ export class BookController {
 	}
 
 	async create(req: Request, res: Response) {
-		const book = await bookService.createBook(req.body);
+		const book = await bookService.create(req.body);
 
 		res.status(201).json({
 			message: 'Book created successfully',
@@ -74,7 +74,7 @@ export class BookController {
 				return res.status(400).json({ message: 'Invalid book ID' });
 			}
 
-			const book = await bookService.updateBook(id, req.body);
+			const book = await bookService.update(id, req.body);
 
 			return res.json({
 				message: 'Book updated successfully',
@@ -102,7 +102,7 @@ export class BookController {
 				return res.status(400).json({ message: 'Invalid book ID' });
 			}
 
-			await bookService.deleteBook(id);
+			await bookService.delete(id);
 
 			return res.json({
 				message: 'Book deleted successfully'
