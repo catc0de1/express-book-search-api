@@ -11,12 +11,13 @@ export async function adminSeeder() {
 
 	const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
 	const PASSWORD_PEPPER = process.env.PASSWORD_PEPPER;
+	const PASSWORD_SALT_ROUNDS = Number(process.env.PASSWORD_SALT_ROUNDS);
 
-	if (!ADMIN_PASSWORD || !PASSWORD_PEPPER) {
-		throw new Error('ADMIN_PASSWORD or PASSWORD_PEPPER missing');
+	if (!ADMIN_PASSWORD || !PASSWORD_PEPPER || !PASSWORD_SALT_ROUNDS) {
+		throw new Error('ADMIN_PASSWORD or PASSWORD_PEPPER or PASSWORD_SALT_ROUNDS missing');
 	}
 
-	const hashedPassword = await bcrypt.hash(ADMIN_PASSWORD + PASSWORD_PEPPER, 12);
+	const hashedPassword = await bcrypt.hash(ADMIN_PASSWORD + PASSWORD_PEPPER, PASSWORD_SALT_ROUNDS);
 
 	await prisma.admin.create({
 		data: {

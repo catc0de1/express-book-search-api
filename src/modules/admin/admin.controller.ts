@@ -13,15 +13,8 @@ export class AdminController {
 		}
 
 		const { password } = req.body;
-		const pepper = process.env.PASSWORD_PEPPER;
 
-		if (!pepper) {
-			return res.status(500).json({
-				message: 'Internal server error'
-			});
-		}
-
-		const isValid = await adminService.validatePassword(password, pepper);
+		const isValid = await adminService.validatePassword(password);
 
 		if (!isValid) {
 			return res.status(401).json({
@@ -57,5 +50,21 @@ export class AdminController {
 				message: 'Logout successfully'
 			});
 		});
+	}
+
+	async changePassword(req: Request, res: Response) {
+		try {
+			await adminService.changePassword(req.body.newPassword);
+
+			return res.status(200).json({
+				message: 'Password changed successfully'
+			});
+		} catch (error) {
+			console.error(error);
+
+			return res.status(500).json({
+				message: 'Failed to change password'
+			});
+		}
 	}
 }

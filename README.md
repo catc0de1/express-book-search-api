@@ -53,6 +53,9 @@ Simple **Book Search API** built with **Express**, **TypeScript**, **Prisma ORM*
     NODE_ENV=production
     DATABASE_URL="postgresql://username:password@localhost:5432/book_api"
     ADMIN_PASSWORD=dontadmin123
+    PASSWORD_PEPPER=randomstringkey
+    PASSWORD_SALT_ROUNDS=10
+    SESSION_SECRET=randomsessionkey
     ```
 
 4. **Prisma Setup**
