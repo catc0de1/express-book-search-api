@@ -45,7 +45,7 @@ export const data: Data[] = [
 		publisher: 'Addison-Wesley',
 		description: 'Your Journey to Mastery',
 		category: 'Programming',
-		bookLocation: 'A-04'
+		bookLocation: 'A-01'
 	},
 	{
 		title: 'Code Complete',
@@ -54,7 +54,7 @@ export const data: Data[] = [
 		publisher: 'Microsoft Press',
 		description: 'A Practical Handbook of Software Construction',
 		category: 'Programming',
-		bookLocation: 'A-05'
+		bookLocation: 'A-02'
 	},
 	{
 		title: 'Introduction to Algorithms',
@@ -81,7 +81,7 @@ export const data: Data[] = [
 		publisher: 'MIT Press',
 		description: 'Deep learning theory and applications',
 		category: 'MachineLearning',
-		bookLocation: 'B-03'
+		bookLocation: 'A-03'
 	},
 	{
 		title: 'Patterns of Enterprise Application Architecture',
@@ -90,7 +90,7 @@ export const data: Data[] = [
 		publisher: 'Addison-Wesley',
 		description: 'Design patterns for enterprise apps',
 		category: 'SoftwareEngineering',
-		bookLocation: 'B-04'
+		bookLocation: 'B-01'
 	},
 	{
 		title: 'Domain-Driven Design',
@@ -99,16 +99,16 @@ export const data: Data[] = [
 		publisher: 'Addison-Wesley',
 		description: 'Tackling complexity in software projects',
 		category: 'SoftwareEngineering',
-		bookLocation: 'B-05'
+		bookLocation: 'A-02'
 	},
 	{
-		title: 'You Don’t Know JS',
+		title: "You Don't Know JS",
 		author: 'Kyle Simpson',
 		year: 2015,
 		publisher: "O'Reilly Media",
 		description: 'Deep dive into JavaScript',
 		category: 'Programming',
-		bookLocation: 'C-01'
+		bookLocation: 'B-01'
 	},
 	{
 		title: 'JavaScript: The Good Parts',
@@ -117,7 +117,7 @@ export const data: Data[] = [
 		publisher: "O'Reilly Media",
 		description: 'Unearthing the elegant parts of JS',
 		category: 'Programming',
-		bookLocation: 'C-02'
+		bookLocation: 'A-02'
 	},
 	{
 		title: 'Effective Java',
@@ -126,7 +126,7 @@ export const data: Data[] = [
 		publisher: 'Addison-Wesley',
 		description: 'Best practices for Java programming',
 		category: 'Programming',
-		bookLocation: 'C-03'
+		bookLocation: 'B-03'
 	},
 	{
 		title: 'Head First Design Patterns',
@@ -135,7 +135,7 @@ export const data: Data[] = [
 		publisher: "O'Reilly Media",
 		description: 'Learning design patterns visually',
 		category: 'SoftwareEngineering',
-		bookLocation: 'C-04'
+		bookLocation: 'A-01'
 	},
 	{
 		title: 'Cracking the Coding Interview',
@@ -144,7 +144,7 @@ export const data: Data[] = [
 		publisher: 'CareerCup',
 		description: '189 programming questions and solutions',
 		category: 'Others',
-		bookLocation: 'C-05'
+		bookLocation: 'B-02'
 	},
 	{
 		title: 'Python Crash Course',
@@ -153,7 +153,7 @@ export const data: Data[] = [
 		publisher: 'No Starch Press',
 		description: 'Hands-on project-based introduction to Python',
 		category: 'Programming',
-		bookLocation: 'D-01'
+		bookLocation: 'A-01'
 	},
 	{
 		title: 'Learning Python',
@@ -162,7 +162,7 @@ export const data: Data[] = [
 		publisher: "O'Reilly Media",
 		description: 'Comprehensive Python guide',
 		category: 'Programming',
-		bookLocation: 'D-02'
+		bookLocation: 'B-02'
 	},
 	{
 		title: 'Fluent Python',
@@ -171,7 +171,7 @@ export const data: Data[] = [
 		publisher: "O'Reilly Media",
 		description: 'Clear and Pythonic techniques',
 		category: 'Programming',
-		bookLocation: 'D-03'
+		bookLocation: 'A-03'
 	},
 	{
 		title: 'Effective TypeScript',
@@ -180,7 +180,7 @@ export const data: Data[] = [
 		publisher: "O'Reilly Media",
 		description: '62 specific ways to improve your TS code',
 		category: 'Programming',
-		bookLocation: 'D-04'
+		bookLocation: 'B-02'
 	},
 	{
 		title: 'Pro Git',
@@ -189,7 +189,7 @@ export const data: Data[] = [
 		publisher: 'Apress',
 		description: 'Everything about Git version control',
 		category: 'DevOps',
-		bookLocation: 'D-05'
+		bookLocation: 'A-01'
 	},
 	{
 		title: 'The Phoenix Project',
@@ -198,7 +198,7 @@ export const data: Data[] = [
 		publisher: 'IT Revolution',
 		description: 'DevOps and IT project management',
 		category: 'DevOps',
-		bookLocation: 'E-01'
+		bookLocation: 'B-01'
 	},
 	{
 		title: 'The DevOps Handbook',
@@ -207,7 +207,7 @@ export const data: Data[] = [
 		publisher: 'IT Revolution',
 		description: 'Practical guidance for DevOps',
 		category: 'DevOps',
-		bookLocation: 'E-02'
+		bookLocation: 'A-02'
 	},
 	{
 		title: 'Introduction to Databases',
@@ -216,7 +216,7 @@ export const data: Data[] = [
 		publisher: 'Addison-Wesley',
 		description: 'Relational database concepts',
 		category: 'Database',
-		bookLocation: 'E-03'
+		bookLocation: 'A-03'
 	},
 	{
 		title: 'SQL Performance Explained',
@@ -225,7 +225,7 @@ export const data: Data[] = [
 		publisher: 'Self-published',
 		description: 'SQL performance tips',
 		category: 'Database',
-		bookLocation: 'E-04'
+		bookLocation: 'B-01'
 	},
 	{
 		title: 'MongoDB: The Definitive Guide',
@@ -234,7 +234,7 @@ export const data: Data[] = [
 		publisher: "O'Reilly Media",
 		description: 'Guide to MongoDB database',
 		category: 'Database',
-		bookLocation: 'E-05'
+		bookLocation: 'A-02'
 	},
 	{
 		title: 'Data Science from Scratch',
@@ -243,7 +243,7 @@ export const data: Data[] = [
 		publisher: "O'Reilly Media",
 		description: 'First principles in data science',
 		category: 'DataScience',
-		bookLocation: 'F-01'
+		bookLocation: 'B-01'
 	},
 	{
 		title: 'Python for Data Analysis',
@@ -252,7 +252,7 @@ export const data: Data[] = [
 		publisher: "O'Reilly Media",
 		description: 'Data analysis with pandas library',
 		category: 'DataScience',
-		bookLocation: 'F-02'
+		bookLocation: 'A-02'
 	},
 	{
 		title: 'Hands-On Machine Learning with Scikit-Learn, Keras, and TensorFlow',
@@ -261,7 +261,7 @@ export const data: Data[] = [
 		publisher: "O'Reilly Media",
 		description: 'Practical ML with Python libraries',
 		category: 'MachineLearning',
-		bookLocation: 'F-03'
+		bookLocation: 'A-03'
 	},
 	{
 		title: 'Machine Learning Yearning',
@@ -270,7 +270,7 @@ export const data: Data[] = [
 		publisher: null,
 		description: 'Structuring ML projects',
 		category: 'MachineLearning',
-		bookLocation: 'F-04'
+		bookLocation: 'A-02'
 	},
 	{
 		title: 'Hands-On Deep Learning with TensorFlow 2',
@@ -279,6 +279,6 @@ export const data: Data[] = [
 		publisher: 'Packt',
 		description: 'Practical deep learning',
 		category: 'MachineLearning',
-		bookLocation: 'F-05'
+		bookLocation: 'B-01'
 	}
 ];

@@ -2,11 +2,13 @@ import 'dotenv/config';
 import { prisma } from '../../src/lib/prisma';
 
 async function main() {
-	console.log('Deleting books...');
+	console.log('Deleting books...\n');
 
-	const result = await prisma.book.deleteMany();
+	const bookResult = await prisma.book.deleteMany();
+	const bookLocationResult = await prisma.bookLocation.deleteMany();
 
-	console.log(`Deleted ${result.count} books`);
+	console.log(`Deleted ${bookResult.count} books`);
+	console.log(`Deleted ${bookLocationResult.count} book locations\n`);
 }
 
 main()
