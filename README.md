@@ -1,6 +1,6 @@
 # Book Search API
 
-Simple **Book Search API** built with **Express**, **TypeScript**, **Prisma ORM**, **PostgreSQL**, and **Meilisearch**.
+Simple **Book Search API** built with **Express**, **TypeScript**, **Prisma ORM**, and **PostgreSQL**.
 
 ---
 
@@ -27,7 +27,6 @@ Simple **Book Search API** built with **Express**, **TypeScript**, **Prisma ORM*
 - **TypeScript**
 - **PostgreSQL**
 - **Prisma ORM**
-- **Meilisearch**
 
 ---
 
